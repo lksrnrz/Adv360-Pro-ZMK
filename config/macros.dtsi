@@ -222,3 +222,89 @@
     bindings = <&mkp MB1 &mkp MB1>;
     display-name = "Double Click";
   };
+
+/ macros {
+  // Helper to type a double quote as Shift + Apostrophe on US layout
+  dq_tap: dq_tap {
+    compatible: "zmk,behavior-macro";
+    #binding-cells = <0>;
+    wait-ms = <40>; tap-ms = <40>;
+    bindings = <&macro_press &kp LSHIFT>, <&macro_tap &kp APOSTROPHE>, <&macro_release &kp LSHIFT>;
+  };
+
+  // Windows umlauts via WinCompose (Compose Key = Right Alt)
+  // Compose -> " -> a/o/u
+  win_ae: win_ae { compatible = "zmk,behavior-macro"; #binding-cells=<0>; wait-ms=<40>; tap-ms=<40>;
+    bindings = <&kp RALT>, <&dq_tap>, <&kp A>;
+  };
+  win_oe: win_oe { compatible = "zmk,behavior-macro"; #binding-cells=<0>; wait-ms=<40>; tap-ms=<40>;
+    bindings = <&kp RALT>, <&dq_tap>, <&kp O>;
+  };
+  win_ue: win_ue { compatible = "zmk,behavior-macro"; #binding-cells=<0>; wait-ms=<40>; tap-ms=<40>;
+    bindings = <&kp RALT>, <&dq_tap>, <&kp U>;
+  };
+
+  // Capitals: Compose -> " -> Shift + letter
+  win_AE: win_AE { compatible = "zmk,behavior-macro"; #binding-cells=<0>; wait-ms=<40>; tap-ms=<40>;
+    bindings = <&kp RALT>, <&dq_tap>, <&macro_press &kp LSHIFT>, <&macro_tap &kp A>, <&macro_release &kp LSHIFT>;
+  };
+  win_OE: win_OE { compatible = "zmk,behavior-macro"; #binding-cells=<0>; wait-ms=<40>; tap-ms=<40>;
+    bindings = <&kp RALT>, <&dq_tap>, <&macro_press &kp LSHIFT>, <&macro_tap &kp O>, <&macro_release &kp LSHIFT>;
+  };
+  win_UE: win_UE { compatible = "zmk,behavior-macro"; #binding-cells=<0>; wait-ms=<40>; tap-ms=<40>;
+    bindings = <&kp RALT>, <&dq_tap>, <&macro_press &kp LSHIFT>, <&macro_tap &kp U>, <&macro_release &kp LSHIFT>;
+  };
+
+  // Eszett: Compose -> s -> s
+  win_sz: win_sz { compatible = "zmk,behavior-macro"; #binding-cells=<0>; wait-ms=<40>; tap-ms=<40>;
+    bindings = <&kp RALT>, <&ks S>, <&kp S>;
+  };
+
+  // Paired delimiters with cursor inside
+  pair_paren: pair_paren { compatible = "zmb,behavior-macro"; #binding-cells=<0>; wait-ms=<25>; tap-ms=<25>;
+    bindings = <&kp LPAR>, <&kp RPAR>, <&kp LEFT>;
+  };  
+  pair_brack: pair_brack { compatible = "zmb,behavior-macro"; #binding-cells=<0>; wait-ms=<25>; tap-ms=<25>;
+    bindings = <&kp LBKT>, <&kp RBKT>, <&kp LEFT>;
+  };  
+  pair_brace: pair_brace { compatible = "zmb,behavior-macro"; #binding-cells=<0>; wait-ms=<25>; tap-ms=<25>;
+    bindings = <&kp LBRC>, <&kp RBRC>, <&kp LEFT>;
+  };  
+  pair_angle: pair_angle { compatible = "zmb,behavior-macro"; #binding-cells=<0>; wait-ms=<25>; tap-ms=<25>;
+    bindings = <&kp LT>, <&kp GT>, <&kp LEFT>;
+  };  
+  pair_dquo: pair_dquo { compatible = "zmb,behavior-macro"; #binding-cells=<0>; wait-ms=<25>; tap-ms=<25>;
+    bindings = <&kp DQT>, <&kp DQT>, <&kp LEFT>;
+  };  
+  pair_squo: pair_squo { compatible = "zmb,behavior-macro"; #binding-cells=<0>; wait-ms=<25>; tap-ms=<25>;
+    bindings = <&kp SQT>, <&kp SQT>, <&kp LEFT>;
+  };  
+  pair_btick: pair_btick { compatible = "zmb,behavior-macro"; #binding-cells=<0>; wait-ms=<25>; tap-ms=<25>;
+    bindings = <&kp GRAVE>, <&kp GRAVE>, <&kp LEFT>;
+  }; 
+
+  // Typescript: console.log()
+  ts_console_log: ts_console_log { compatible = "zmb,behavior-macro"; #binding-cells=<0>; wait-ms=<20>; tap-ms=<20>;
+    bindings = 
+      <&kp C>, <&kp O>, <&kp N>, <&kp S>, <&kp O>, <&kp L>, <&kp E>, <&kp DOT>,
+        <&kp L>, <&kp O>, <&kp G>, <&kp LPAR>, <&kp RPAR>, <&kp SEMI>, <&kp LEFT>;
+  }; 
+
+  // Java: System.out.println()
+  jv_sout: jv_sout {
+      compatible="zmk,behavior-macro"; #binding-cells=<0>; wait-ms=<20>; tap-ms=<20>;
+      bindings =
+        <&macro_press &kp LSHIFT>, <&macro_tap &kp S>, <&macro_release &kp LSHIFT>, <&kp Y>, <&kp S>, <&kp T>, <&kp E>, <&kp M>, <&kp DOT>,
+        <&kp O>, <&kp U>, <&kp T>, <&kp DOT>,
+        <&kp P>, <&kp R>, <&kp I>, <&kp N>, <&kp T>, <&kp L>, <&kp N>, <&kp LPAR>, <&kp RPAR>, <&kp SEMI>,
+        <&kp LEFT>;
+    };
+
+  // Typescript arrow function
+  ts_arrow_fn: ts_arrow_fn {
+      compatible="zmk,behavior-macro"; #binding-cells=<0>; wait-ms=<20>; tap-ms=<20>;
+      bindings =
+        <&kp LPAR>, <&kp RPAR>, <&kp SPACE>, <&kp EQUAL>, <&kp GT>, <&kp SPACE>,
+        <&kp LBRC>, <&kp RBRC>, <&kp LEFT>;
+    };
+}
