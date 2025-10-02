@@ -32,19 +32,19 @@
     };
 
     // mod-morph for A/Ä, O/Ö, U/Ü
-    ae_morph: mod_morph {
+    ae_morph: ae_morph {
       compatible = "zmk,behavior-mod-morph";
       #binding-cells = <0>;
       mods = <(MOD_LSFT|MOD_RSFT)>;
       bindings = <&win_ae &win_AE>;
     };
-    oe_morph: mod_morph {
+    oe_morph: oe_morph {
       compatible = "zmk,behavior-mod-morph";
       #binding-cells = <0>;
       mods = <(MOD_LSFT|MOD_RSFT)>;
       bindings = <&win_oe &win_OE>;
     };
-    ue_morph: mod_morph {
+    ue_morph: ue_morph {
       compatible = "zmk,behavior-mod-morph";
       #binding-cells = <0>;
       mods = <(MOD_LSFT|MOD_RSFT)>;
@@ -52,19 +52,19 @@
     };
 
     // mod-morph for paired symbols (Shift switches the pair)
-    paren_brack: mod_morph {
+    paren_brack: paren_brack {
       compatible = "zmk,behavior-mod-morph";
       #binding-cells = <0>;
       mods = <(MOD_LSFT|MOD_RSFT)>;
       bindings = <&pair_paren &pair_brack>;
     };
-    brace_angle: mod_morph {
+    brace_angle: brace_angle {
       compatible = "zmk,behavior-mod-morph";
       #binding-cells = <0>;
       mods = <(MOD_LSFT|MOD_RSFT)>;
       bindings = <&pair_brace &pair_angle>;
     };
-    quote_morph: mod_morph {
+    quote_morph: quote_morph {
       compatible = "zmk,behavior-mod-morph";
       #binding-cells = <0>;
       mods = <(MOD_LSFT|MOD_RSFT)>;
