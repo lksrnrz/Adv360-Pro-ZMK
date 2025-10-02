@@ -281,19 +281,19 @@
     /* ---------- Windows umlauts via WinCompose ---------- */
 
     // Compose -> " -> a/o/u
-    win_ae: win_ae {
+    win_ae: m_win_ae {
       compatible = "zmk,behavior-macro";
       #binding-cells = <0>;
       wait-ms = <40>; tap-ms = <40>;
       bindings = <&kp RALT>, <&dq_tap>, <&kp A>;
     };
-    win_oe: win_oe {
+    win_oe: m_win_oe {
       compatible = "zmk,behavior-macro";
       #binding-cells = <0>;
       wait-ms = <40>; tap-ms = <40>;
       bindings = <&kp RALT>, <&dq_tap>, <&kp O>;
     };
-    win_ue: win_ue {
+    win_ue: m_win_ue {
       compatible = "zmk,behavior-macro";
       #binding-cells = <0>;
       wait-ms = <40>; tap-ms = <40>;
@@ -301,21 +301,21 @@
     };
 
     // Capitals: Compose -> " -> Shift + letter
-    win_AE: win_AE {
+    win_AE: m_win_ae_caps {
       compatible = "zmk,behavior-macro";
       #binding-cells = <0>;
       wait-ms = <40>; tap-ms = <40>;
       bindings = <&kp RALT>, <&dq_tap>,
                  <&macro_press &kp LSHIFT>, <&macro_tap &kp A>, <&macro_release &kp LSHIFT>;
     };
-    win_OE: win_OE {
+    win_OE: m_win_oe_caps {
       compatible = "zmk,behavior-macro";
       #binding-cells = <0>;
       wait-ms = <40>; tap-ms = <40>;
       bindings = <&kp RALT>, <&dq_tap>,
                  <&macro_press &kp LSHIFT>, <&macro_tap &kp O>, <&macro_release &kp LSHIFT>;
     };
-    win_UE: win_UE {
+    win_UE: m_win_ue_caps {
       compatible = "zmk,behavior-macro";
       #binding-cells = <0>;
       wait-ms = <40>; tap-ms = <40>;
@@ -332,7 +332,7 @@
     };
 
     // Optional ẞ if you added a WinCompose sequence like Compose -> Shift+S -> S -> =
-    win_SZ: win_SZ {
+    win_SZ: m_win_sz_caps {
       compatible = "zmk,behavior-macro";
       #binding-cells = <0>;
       wait-ms = <40>; tap-ms = <40>;
