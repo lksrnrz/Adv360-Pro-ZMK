@@ -6,6 +6,10 @@
 #include <dt-bindings/zmk/backlight.h>
 #include <dt-bindings/zmk/pointing.h>
 
+// Include these at top level (NOT inside 'behaviors')
+#include "macros.dtsi"
+#include "version.dtsi"
+
 #define _BASE   0
 #define _KP     1
 #define _FN     2
@@ -16,62 +20,57 @@
 #define _MOUSE  7
 
 / {
-    behaviors {
-      #include "macros.dtsi"
-      #include "version.dtsi"
+  behaviors {
 
-      hm: homerow_mods {
-          compatible = "zmk,behavior-hold-tap";
-          label = "HOMEROW_MODS";
-          #binding-cells = <2>;
-          tapping-term-ms = <200>;
-          flavor = "balanced";
-          bindings = <&kp>, <&kp>; // we pass (MOD, KEY) each time we use &hm
-      };
-
-      // mod-morph for A/Ä, O/Ö, U/Ü
-      ae_morph: mod_morph {
-        compatible = "zmk,behavior-mod-morph";
-        #binding-cells = <0>;
-        // if Shift is held -> use second binding
-        mods = <(MOD_LSFT|MOD_RSFT)>;
-        bindings = <&win_ae &win_AE>;
-      };
-      oe_morph: mod_morph {
-        compatible = "zmk,behavior-mod-morph";
-        #binding-cells = <0>;
-        // if Shift is held -> use second binding
-        mods = <(MOD_LSFT|MOD_RSFT)>;
-        bindings = <&win_oe &win_OE>;
-      };
-      ue_morph: mod_morph {
-        compatible = "zmk,behavior-mod-morph";
-        #binding-cells = <0>;
-        // if Shift is held -> use second binding
-        mods = <(MOD_LSFT|MOD_RSFT)>;
-        bindings = <&win_ue &win_UE>;
-      };
-
-      // mod-morph for paired symbols 
-      paren_brack: mod_morph {
-        compatible = "zmb,behavior-mod-morph";
-        #binding-cells = <0>;
-        mods = <(MOD_LSFT|MOD_RSFT)>;
-        bindings = <&pair_paren &pair_brack>;
-      };
-      brace_angle: mod_morph {
-        compatible = "zmb,behavior-mod-morph";
-        #binding-cells = <0>;
-        mods = <(MOD_LSFT|MOD_RSFT)>;
-        bindings = <&pair_brace &pair_angle>;
-      };
-      quote_morph: mod_morph {
-        compatible = "zmb,behavior-mod-morph";
-        #binding-cells = <0>;
-        mods = <(MOD_LSFT|MOD_RSFT)>;
-        bindings = <&pair_squo &pair_dquo>;
-      };
+    hm: homerow_mods {
+      compatible = "zmk,behavior-hold-tap";
+      label = "HOMEROW_MODS";
+      #binding-cells = <2>;
+      tapping-term-ms = <200>;
+      flavor = "balanced";
+      bindings = <&kp>, <&kp>; // we pass (MOD, KEY) each time we use &hm
     };
+
+    // mod-morph for A/Ä, O/Ö, U/Ü
+    ae_morph: mod_morph {
+      compatible = "zmk,behavior-mod-morph";
+      #binding-cells = <0>;
+      mods = <(MOD_LSFT|MOD_RSFT)>;
+      bindings = <&win_ae &win_AE>;
+    };
+    oe_morph: mod_morph {
+      compatible = "zmk,behavior-mod-morph";
+      #binding-cells = <0>;
+      mods = <(MOD_LSFT|MOD_RSFT)>;
+      bindings = <&win_oe &win_OE>;
+    };
+    ue_morph: mod_morph {
+      compatible = "zmk,behavior-mod-morph";
+      #binding-cells = <0>;
+      mods = <(MOD_LSFT|MOD_RSFT)>;
+      bindings = <&win_ue &win_UE>;
+    };
+
+    // mod-morph for paired symbols (Shift switches the pair)
+    paren_brack: mod_morph {
+      compatible = "zmk,behavior-mod-morph";
+      #binding-cells = <0>;
+      mods = <(MOD_LSFT|MOD_RSFT)>;
+      bindings = <&pair_paren &pair_brack>;
+    };
+    brace_angle: mod_morph {
+      compatible = "zmk,behavior-mod-morph";
+      #binding-cells = <0>;
+      mods = <(MOD_LSFT|MOD_RSFT)>;
+      bindings = <&pair_brace &pair_angle>;
+    };
+    quote_morph: mod_morph {
+      compatible = "zmk,behavior-mod-morph";
+      #binding-cells = <0>;
+      mods = <(MOD_LSFT|MOD_RSFT)>;
+      bindings = <&pair_squo &pair_dquo>;
+    };
+  };
 
   keymap {
     compatible = "zmk,keymap";
@@ -81,21 +80,23 @@
       bindings = <
         &kp EQUAL &kp N1    &kp N2   &kp N3   &kp N4     &kp N5 &tog 1                                                           &mo 3      &kp N6 &kp N7 &kp N8    &kp N9   &kp N0   &kp MINUS
         &kp TAB   &kp Q     &kp W    &kp E    &kp R      &kp T  &sl _UML                                                         &mo _NAV   &kp Y  &kp U  &kp I     &kp O    &kp P    &kp BSLH
-        &kp ESC   &kp A     &kp S    &kp D    &kp F      &kp G  &mo _SYMB       &kp LCTRL &kp LALT &kp LGUI  &kp RCTRL           &mo _MOUSE &kp H  &kp J  &kp K     &kp L    &kp SEMI &kp SQT
-        &kp LSHFT &kp Z     &kp X    &kp C    &kp V      &kp B                            &kp HOME &kp PG_UP                                &kp N  &kp M  &kp COMMA &kp DOT  &kp FSLH &kp RSHFT
+        &kp ESC   &kp A     &kp S    &kp D    &kp F      &kp G  &mo _SYMB       &kp LCTRL &kp LALT &kp LGUI  &kp RCTRL           &mo _MOUSE &kp H  &kp J  &kp K     &kp L    &kp SEMI &kp APOSTROPHE
+        &kp LSHFT &kp Z     &kp X    &kp C    &kp V      &kp B                            &kp HOME &kp PG_UP                                &kp N  &kp M  &kp COMMA &kp DOT  &kp SLASH &kp RSHFT
         &mo 2     &kp GRAVE &kp CAPS &kp LEFT &kp RIGHT                &kp BSPC &kp DEL   &kp END  &kp PG_DN &kp ENTER &kp SPACE                 &kp UP &kp DOWN  &kp LBKT &kp RBKT &mo 2
       >;
     };
+
     keypad {
       display-name = "Kp";
       bindings = <
         &kp EQUAL &kp N1    &kp N2   &kp N3   &kp N4     &kp N5 &trans                                                           &mo 3 &kp N6 &kp KP_NUM &kp KP_EQUAL &kp KP_DIVIDE &kp KP_MULTIPLY &kp MINUS
         &kp TAB   &kp Q     &kp W    &kp E    &kp R      &kp T  &none                                                            &none &kp Y  &kp KP_N7  &kp KP_N8    &kp KP_N9     &kp KP_MINUS    &kp BSLH
-        &kp ESC   &kp A     &kp S    &kp D    &kp F      &kp G  &none           &kp LCTRL &kp LALT &kp LGUI  &kp RCTRL           &none &kp H  &kp KP_N4  &kp KP_N5    &kp KP_N6     &kp KP_PLUS     &kp SQT
+        &kp ESC   &kp A     &kp S    &kp D    &kp F      &kp G  &none           &kp LCTRL &kp LALT &kp LGUI  &kp RCTRL           &none &kp H  &kp KP_N4  &kp KP_N5    &kp KP_N6     &kp KP_PLUS     &kp APOSTROPHE
         &kp LSHFT &kp Z     &kp X    &kp C    &kp V      &kp B                            &kp HOME &kp PG_UP                           &kp N  &kp KP_N1  &kp KP_N2    &kp KP_N3     &kp KP_ENTER    &kp RSHFT
         &mo 2     &kp GRAVE &kp CAPS &kp LEFT &kp RIGHT                &kp BSPC &kp DEL   &kp END  &kp PG_DN &kp ENTER &kp KP_N0              &kp UP     &kp DOWN     &kp KP_DOT    &kp RBKT        &mo 2
       >;
     };
+
     fn {
       display-name = "Fn";
       bindings = <
@@ -106,6 +107,7 @@
         &trans &trans &trans &trans &trans               &trans &trans &trans &trans &trans &trans              &trans &trans &trans  &trans  &trans
       >;
     };
+
     mod {
       display-name = "Mod";
       bindings = <
@@ -116,26 +118,28 @@
         &none &none        &none        &none        &none                                       &none &none &none &none      &bl BL_TOG &rgb_ug RGB_TOG                                     &bl BL_INC   &bl BL_DEC   &none &none &none
       >;
     };
+
     uml {
       label = "UML";
       bindings = <
         &kp EQUAL &kp N1    &kp N2   &kp N3   &kp N4     &kp N5 &tog 1                                                           &mo 3      &kp N6 &kp N7  &kp N8    &kp N9   &kp N0   &kp MINUS
         &kp TAB   &kp Q     &kp W    &kp E    &kp R      &kp T  &sl _UML                                                         &mo _NAV   &kp Y  &ue_morph &kp I     &oe_morph  &kp P    &kp BSLH
-        &kp ESC   &ae_morph &win_sz  &kp D    &kp F      &kp G  &mo _SYMB       &kp LCTRL &kp LALT &kp LGUI  &kp RCTRL           &mo _MOUSE &kp H  &kp J   &kp K     &kp L    &kp SEMI &kp SQT
-        &kp LSHFT &kp Z     &kp X    &kp C    &kp V      &kp B                            &kp HOME &kp PG_UP                                &kp N  &kp M   &kp COMMA &kp DOT  &kp FSLH &kp RSHFT
+        &kp ESC   &ae_morph &win_sz  &kp D    &kp F      &kp G  &mo _SYMB       &kp LCTRL &kp LALT &kp LGUI  &kp RCTRL           &mo _MOUSE &kp H  &kp J   &kp K     &kp L    &kp SEMI &kp APOSTROPHE
+        &kp LSHFT &kp Z     &kp X    &kp C    &kp V      &kp B                            &kp HOME &kp PG_UP                                &kp N  &kp M   &kp COMMA &kp DOT  &kp SLASH &kp RSHFT
         &mo 2     &kp GRAVE &kp CAPS &kp LEFT &kp RIGHT                &kp BSPC &kp DEL   &kp END  &kp PG_DN &kp ENTER &kp SPACE                 &kp UP &kp DOWN  &kp LBKT &kp RBKT &mo 2
       >; 
     };
+
     symb {
       label = "SYMB";
       bindings = <
         &kp EQUAL &kp N1    &kp N2   &kp N3   &kp N4     &kp N5 &tog 1                                                           &mo 3      &kp N6 &kp N7 &kp N8    &kp N9   &kp N0   &kp MINUS
         &kp TAB   &kp Q     &kp W    &kp E    &kp R      &kp T  &sl _UML                                                         &mo _NAV   &kp Y  &kp U  &kp I     &kp O    &kp P    &kp BSLH
-        &kp ESC   &paren_brack     &brace_angle    &quote_morph    &par_btick      &kp G  &mo _SYMB       &kp LCTRL &kp LALT &kp LGUI  &kp RCTRL           &mo _MOUSE &kp H  &ts_console_log  &ts_arrow_fn     &jv_sout    &kp SEMI &kp SQT
-        &kp LSHFT &kp Z     &kp X    &kp C    &kp V      &kp B                            &kp HOME &kp PG_UP                                &kp N  &kp M  &kp COMMA &kp DOT  &kp FSLH &kp RSHFT
+        &kp ESC   &paren_brack     &brace_angle    &quote_morph    &pair_btick      &kp G  &mo _SYMB       &kp LCTRL &kp LALT &kp LGUI  &kp RCTRL           &mo _MOUSE &kp H  &ts_console_log  &ts_arrow_fn     &jv_sout    &kp SEMI &kp APOSTROPHE
+        &kp LSHFT &kp Z     &kp X    &kp C    &kp V      &kp B                            &kp HOME &kp PG_UP                                &kp N  &kp M  &kp COMMA &kp DOT  &kp SLASH &kp RSHFT
         &mo 2     &kp GRAVE &kp CAPS &kp LEFT &kp RIGHT                &kp BSPC &kp DEL   &kp END  &kp PG_DN &kp ENTER &kp SPACE                 &kp UP &kp DOWN  &kp LBKT &kp RBKT &mo 2
       >; 
-    };s
+    };
 
     extra1 { 
       display-name = "Red";    
@@ -147,7 +151,7 @@
       status = "reserved";
     };
 
-    extra3 { sa
+    extra3 { 
       display-name = "Cyan";    
       status = "reserved";
     };
