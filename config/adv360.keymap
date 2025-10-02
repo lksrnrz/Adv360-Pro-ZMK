@@ -62,7 +62,7 @@
       compatible = "zmk,behavior-mod-morph";
       #binding-cells = <0>;
       mods = <(MOD_LSFT|MOD_RSFT)>;
-      bindings = <&macro_braces &pair_angle>;
+      bindings = <&macro_braces &macro_angles>;
     };
     quote_morph: quote_morph {
       compatible = "zmk,behavior-mod-morph";
