@@ -70,6 +70,31 @@
       mods = <(MOD_LSFT|MOD_RSFT)>;
       bindings = <&macro_quotes &macro_dquotes>;
     };
+
+    // Mouse speed
+    // Shift held → fast movement; otherwise slow
+    mv_up_morph: mv_up_morph {
+      compatible = "zmk,behavior-mod-morph";
+      #binding-cells = <0>;
+      mods = <(MOD_LSFT|MOD_RSFT)>;
+      bindings = <&mmv MOVE_Y(-600)   &mmv MOVE_Y(-1200)>; // slow ↑ , fast ↑
+    };
+    mv_down_morph: mv_down_morph {
+      compatible = "zmk,behavior-mod-morph"; #binding-cells = <0>;
+      mods = <(MOD_LSFT|MOD_RSFT)>;
+      bindings = <&mmv MOVE_Y(600)    &mmv MOVE_Y(1200)>;  // slow ↓ , fast ↓
+    };
+    mv_left_morph: mv_left_morph {
+      compatible = "zmk,behavior-mod-morph"; #binding-cells = <0>;
+      mods = <(MOD_LSFT|MOD_RSFT)>;
+      bindings = <&mmv MOVE_X(-600)   &mmv MOVE_X(-1200)>; // slow ← , fast ←
+    };
+    mv_right_morph: mv_right_morph {
+      compatible = "zmk,behavior-mod-morph"; #binding-cells = <0>;
+      mods = <(MOD_LSFT|MOD_RSFT)>;
+      bindings = <&mmv MOVE_X(600)    &mmv MOVE_X(1200)>;  // slow → , fast →
+    };
+
   };
 
   keymap {
@@ -144,36 +169,11 @@
     mouse {
       display-name = "MOUSE";
       bindings = <
-        /* Row 1 (numbers) — unchanged */
-        &trans   &trans   &trans  &trans  &trans  &trans  &trans                                    &trans     &trans  &trans  &trans  &trans  &trans  &trans
-
-        /* Row 2 — SCROLL ring above the mover diamond */
-        &trans   &trans   &trans  &trans  &trans  &trans  &trans                                    &trans
-        &trans
-        &msc SCRL_UP        /* U = scroll up    */
-        &trans
-        &msc SCRL_DOWN      /* O = scroll down  */
-        &trans
-        &msc SCRL_LEFT      /* [ = scroll left  */
-        &msc SCRL_RIGHT     /* ] = scroll right */
-
-        /* Row 3 — POINTER MOVE diamond on J K L I */
-        &trans   &trans   &trans  &trans  &trans  &trans  &trans           &trans &trans &trans &trans  &trans
-        &mmv MOVE_LEFT      /* H = move left  */
-        &mmv MOVE_DOWN      /* J = move down  */
-        &mmv MOVE_UP        /* K = move up    */
-        &mmv MOVE_RIGHT     /* L = move right */
-        &mkp LCLK           /* ; = left click */
-        &mkp RCLK           /* ' = right click */
-
-        /* Row 4 — middle click handy on Slash; keep your nav column as-is */
-        &trans   &trans   &trans  &trans  &trans  &trans                       &trans  &trans
-        /* right-hand */
-        &trans  &trans  &trans  &trans  &mkp MCLK  /* / = middle click */
-        &trans
-
-        /* Row 5 — leave thumbs and edges alone (inherits Base) */
-        &trans   &trans   &trans  &trans  &trans                 &trans &trans &trans  &trans  &trans  &trans            &trans  &trans  &trans  &trans  &trans
+        &none &none &none &none &none &none &none                                             &none &none &none &none &none &none &none
+        &none &none &none &none &none &none  &none                                            &none &none &SCRL_UP &MOVE_UP &SCRL_DOWN  &none  &none
+        &none &none &LCLK &RCLK &none &none  &none        &none &none &none &none             &none &SCRL_LEFT &MOVE_LEFT &MOVE_DOWN &MOVE_RIGHT  &SCRL_RIGHT  &none
+        &none &none &none &none &none &none                      &none &none                     &none &none &none &none  &none  &none
+        &none &none &none &none &none               &none &none &none &none &none &none              &none &none &none  &none  &none
       >;
     };
 
