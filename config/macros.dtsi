@@ -55,6 +55,14 @@
       bindings = <&kp LBKT>, <&kp RBKT>, <&kp LEFT>;  // [ ] then Left
     };
 
+    macro_bticks: macro_bticks {
+      compatible = "zmk,behavior-macro";
+      label = "macro_bticks";
+      #binding-cells = <0>;
+      wait-ms = <25>; tap-ms = <25>;
+      bindings = <&kp GRAVE>, <&kp GRAVE>, <&kp LEFT>;  // ` ` then Left
+    };
+
     macro_kinesis: macro_kinesis {
       compatible = "zmk,behavior-macro";
       label = "macro_kinesis";
